@@ -4,7 +4,7 @@
 
   <h2>Edit User</h2>
   <form method="POST" action="update">
-    <input type="hidden" name="uid" value="{{ .Id }}" />
+    <input type="hidden" name="uid" value="{{ .ID }}" />
     <label>Name</label>
     <input type="text" name="name" value="{{ .Name }}" />
     <label>Email</label>
@@ -12,7 +12,7 @@
     <input type="submit" value="Save user" />
   </form>
 
-  <a href="/delete?id={{ .Id }}">Delete</a>
+  <a href="/delete?id={{ .ID }}">Delete</a>
 
   {{ template "Footer"}}
 {{ end }}

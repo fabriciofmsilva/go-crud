@@ -15,10 +15,10 @@
     <tbody>
       {{ range . }}
         <tr>
-          <td>{{ .Id }}</td>
+          <td>{{ .ID }}</td>
           <td>{{ .Name }}</td>
           <td>{{ .Email }}</td>
-          <td><a href="/show?id={{ .Id }}">View</a>  |  <a href="/edit?id={{ .Id }}">Edit</a></td>
+          <td><a href="/show?id={{ .ID }}">View</a>  |  <a href="/edit?id={{ .ID }}">Edit</a></td>
         </tr>
       {{ end }}
     </tbody>

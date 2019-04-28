@@ -9,6 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// Names represent a name struct
 type Names struct {
 	ID    int
 	Name  string
@@ -30,6 +31,7 @@ func dbConn() (db *sql.DB) {
 
 var tmpl = template.Must(template.ParseGlob("tmpl/*"))
 
+// Index function
 func Index(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 
@@ -63,12 +65,13 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 }
 
+// Show function
 func Show(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 
-	nId := r.URL.Query().Get("id")
+	nID := r.URL.Query().Get("id")
 
-	selDB, err := db.Query("SELECT * FROM names WHERE id=?", nId)
+	selDB, err := db.Query("SELECT * FROM names WHERE id=?", nID)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -94,10 +97,12 @@ func Show(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 }
 
+// New function
 func New(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "New", nil)
 }
 
+// Edit function
 func Edit(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 
@@ -129,6 +134,7 @@ func Edit(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 }
 
+// Insert function
 func Insert(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 
@@ -151,6 +157,7 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", 301)
 }
 
+// Update function
 func Update(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 
@@ -174,17 +181,18 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", 301)
 }
 
+// Delete function
 func Delete(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 
-	nId := r.URL.Query().Get("id")
+	nID := r.URL.Query().Get("id")
 
 	delForm, err := db.Prepare("DELETE FROM names WHERE id=?")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	delForm.Exec(nId)
+	delForm.Exec(nID)
 
 	log.Println("DELETE")
 
